@@ -45,19 +45,19 @@ void swap(char *p1, char *p2)
 {
   char temp = *p1;
   *p1 = *p2;
-  p2 = temp;
+  *p2 = temp;
 }
 
 //swaps a random pointer to the end of the array based on the median of three randomly chosen indices
 void pivot(char *array, int maxIndex)
 {
   //indices 1,2,3 respectively
-  indexOne = rand() % (maxIndex + 1);
-  indexTwo = rand() % (maxIndex + 1);
-  indexThree = rand()(% maxIndex + 1);
+  int indexOne = rand() % (maxIndex + 1);
+  int indexTwo = rand() % (maxIndex + 1);
+  int indexThree = rand() % (maxIndex + 1);
   if (compare((array + indexOne), (array + indexTwo)) > 0) //case 1>2
   {
-    if (compare((array + indexThree), (array + indexOne) > 0)
+    if (compare((array + indexThree), (array + indexOne)) > 0)
     {
       swap((array + maxIndex), (array + indexOne)); // case  3>1>2
     }
@@ -65,20 +65,24 @@ void pivot(char *array, int maxIndex)
     {
       swap((array + maxIndex), (array + indexTwo)); // case  1>2>3
     }
-    else{
+    else
+    {
       swap((array + maxIndex), (array + indexThree)); //case 1>3>2
     }
   }
 
-  else  // case: 2>1
+  else // case: 2>1
   {
-    if( compare( (array+indexOne) , (array + indexThree) > 0){
+    if (compare((array + indexOne), (array + indexThree)) > 0)
+    {
       swap((array + maxIndex), (array + indexOne)); // case 2>1>3
-		}
-		else if( compare( (array + maxIndex) , (array + maxIndex/2) <0){
+    }
+    else if (compare((array + maxIndex), (array + maxIndex / 2)) < 0)
+    {
       swap((array + maxIndex), (array + indexTwo)); // case 3>2>1
-		}
-    else{
+    }
+    else
+    {
       swap((array + maxIndex), (array + indexThree)); //case 2>3>1
     }
   }
@@ -119,7 +123,5 @@ int main()
     }
   }
 
-}
-
-quicksort(*nameArray, *(nameArray + nameIndex));
+  quicksort(*nameArray, *(nameArray + nameIndex));
 }
