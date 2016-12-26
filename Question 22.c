@@ -119,23 +119,6 @@ int main()
     }
   }
 
-  // choose pivot for quicksort
-
-  /* cases:
-  1,2,3 
-  1,3,2 
-  2,3,1 
-  2,1,3 
-  3,1,2 
-  3,2,1
-  */
-
-  // take median of front, end and middle of the nameArray, consider as a list
-  // with order 1,2,3 where 2 is middle index.
-
-  // swap median to last index:
-
-  // case: 1>3
 }
 
 quicksort(*nameArray, *(nameArray + nameIndex));
