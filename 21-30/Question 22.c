@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-// chose to do this low level without much help from libraries - edit: had to add string library for memset
+// chose to do this low level without much help from libraries - edit: had to add string library for myMemSet
 
 //use some assembly to get a random number
 unsigned long long rdtsc()
@@ -12,7 +11,7 @@ unsigned long long rdtsc()
   return ((unsigned long long)hi << 32) | lo;
 }
 
-void *memset(void *arr, int c, size_t n)
+void *myMemSet(void *arr, int c, size_t n)
 {
 char* str = (char*) arr;
   for (size_t i = 0; i < n; i++)
@@ -28,20 +27,10 @@ char* str = (char*) arr;
 // returns  0 if first == second
 int compare(char *first, char *second)
 {
-  int compareIndex = 0;
- while( *(first+compareIndex) != '\0' && *(second+compareIndex) != '\0')
-  {
-    if (*(first + compareIndex) > *(second + compareIndex))
-    {
-      return 1;
-    }
-    else if (*(first + compareIndex) < *(second + compareIndex))
-    {
-      return -1;
-    }
-    compareIndex++;
+  while(*first && (*first == *second)){
+    first++;second++;
   }
-  return 0;
+  return (*first < *second) ? -1 : (*second > *first);
 }
 //swaps values pointed at by p1 and p2, used for swapping strings
 void swap(char **p1, char**p2)
@@ -51,46 +40,6 @@ void swap(char **p1, char**p2)
   *p2 = temp;
 }
 
-//not used
-//swaps a random pointer to the end of the array based on the median of three randomly chosen indices
-// void pivot(char *array, int maxIndex)
-// {
-//   //indices 1,2,3 respectively
-//   int indexOne = rand() % (maxIndex + 1);
-//   int indexTwo = rand() % (maxIndex + 1);
-//   int indexThree = rand() % (maxIndex + 1);
-//   if (compare((array + indexOne), (array + indexTwo)) > 0) //case 1>2
-//   {
-//     if (compare((array + indexThree), (array + indexOne)) > 0)
-//     {
-//       swap((array + maxIndex), (array + indexOne)); // case  3>1>2
-//     }
-//     else if (compare((array + indexOne), (array + indexThree)) > 0)
-//     {
-//       swap((array + maxIndex), (array + indexTwo)); // case  1>2>3
-//     }
-//     else
-//     {
-//       swap((array + maxIndex), (array + indexThree)); //case 1>3>2
-//     }
-//   }
-
-//   else // case: 2>1
-//   {
-//     if (compare((array + indexOne), (array + indexThree)) > 0)
-//     {
-//       swap((array + maxIndex), (array + indexOne)); // case 2>1>3
-//     }
-//     else if (compare((array + maxIndex), (array + maxIndex / 2)) < 0)
-//     {
-//       swap((array + maxIndex), (array + indexTwo)); // case 3>2>1
-//     }
-//     else
-//     {
-//       swap((array + maxIndex), (array + indexThree)); //case 2>3>1
-//     }
-//   }
-// }
 
 //split everything from low to high into two lists.
 //half less than pivot, half greater than pivot
@@ -104,15 +53,15 @@ char **partition(char **low, char **high)
   char** temp = high; //swap pointers
   high = pivot;
   pivot = temp;
-  //go from low to high, swapping if index partitionIndex < pivot
-  char **partitionIndex = low;
-  while (partitionIndex != pivot)
+  //go from low to high, swapping if index curr < pivot
+  char **curr = low; //wall is 'behind' low
+  while (curr != pivot)
   {
-    if (compare(*partitionIndex, *pivot) < 0)
+    if (compare(*curr, *pivot) < 0)
     {
-      swap(low++, partitionIndex); //once swapped, increment low because it's been swapped
+      swap(low++, curr); //once swapped, increment low because it's been swapped
     }
-    partitionIndex++;
+    curr++;
   } 
   // at the very end, everything to the left of pivot is less than it
   // and everything to the right of it should be greater than it
@@ -152,9 +101,9 @@ int main()
   char const *filePath = "q22.txt";
   FILE *textStream = fopen(filePath, "r");
   char **nameArray = (char **)malloc(6000 * sizeof(char *)); // not implemented as an array
-  memset(nameArray, 0, 6000 * sizeof(char *));
+  myMemSet(nameArray, 0, 6000 * sizeof(char *));
   *(nameArray) = malloc(40 * sizeof(char));
-  memset(*nameArray, 0, 40 * sizeof(char));
+  myMemSet(*nameArray, 0, 40 * sizeof(char));
   char c;
   int charIndex = 0;
   int nameIndex = 0;
@@ -172,7 +121,7 @@ int main()
       {
         charIndex = 0;
         *(nameArray + ++nameIndex) = malloc(40 * sizeof(char));
-        memset(*(nameArray + nameIndex), 0, 40 * sizeof(char));
+        myMemSet(*(nameArray + nameIndex), 0, 40 * sizeof(char));
       }
     }
   }
@@ -185,8 +134,7 @@ int main()
   {
     score = getBasicScore(*(nameArray + i));
     nameScoreTotal += (i+1)*score;
-    printf("%s\n", *(nameArray+i));
   }
 
-  printf("\n%ld\n", nameScoreTotal);
+  printf("%ld\n", nameScoreTotal);
 }
