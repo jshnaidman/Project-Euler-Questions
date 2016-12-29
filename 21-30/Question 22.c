@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-// chose to do this low level without much help from libraries - edit: had to add string library for myMemSet
 
 //use some assembly to get a random number
 unsigned long long rdtsc()
