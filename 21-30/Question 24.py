@@ -22,19 +22,16 @@ permutations and so on and so on.
 We therefore need the nth digit i to hold the condition i*(n-1)! < 1e6
 while being the largest digit possible so that we can reduce the space
 of possible permutations by as much as possible. This can actually
-be solved
+be solved by hand.
 
 """
 while n>0:
     fact = factorial(n-1)
-    i=0
-    temp = 0
-    while (temp < permutations):
-        temp += fact
-        i += 1
-    temp -= fact
-    i -= 1
-    permutations -= temp
+    i = int(permutations/fact)
+    permutations -= i*fact
+    if(permutations == 0): #permutations should never be 0, always at least 1
+        permutations += fact
+        i -= 1
     permutation.append(numbers[i])
     del numbers[i]
     n -= 1;
