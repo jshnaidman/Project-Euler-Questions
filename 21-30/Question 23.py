@@ -1,7 +1,13 @@
 import math
 
+<<<<<<< HEAD
 
 #returns factors of integer n
+=======
+abundants = []
+maxNum = 28123
+
+>>>>>>> c20ba4f97358cd7a0250c7712f1844069378c73b
 def factor(n):
     i = 2
     n_factors = []
@@ -14,7 +20,11 @@ def factor(n):
         i += 1
     return n_factors
 
+<<<<<<< HEAD
 #find a numbers factors and if sum of factors > the number, it's abundant
+=======
+
+>>>>>>> c20ba4f97358cd7a0250c7712f1844069378c73b
 def isAbundant(num):
     numFactors = factor(num)
     total = 1
@@ -24,7 +34,10 @@ def isAbundant(num):
         return True
     return False
 
+<<<<<<< HEAD
 #returns true if target is in the list
+=======
+>>>>>>> c20ba4f97358cd7a0250c7712f1844069378c73b
 def binarySearch(target,num_list):
     low = 0
     high = len(num_list) -1
@@ -41,6 +54,7 @@ def binarySearch(target,num_list):
 
 n=0
 total=0
+<<<<<<< HEAD
 abundants = []
 # By mathematical analysis, it can be shown that all integers
 # greater than 28123 can be written as the sum of two abundant numbers.
@@ -62,6 +76,8 @@ If n - num is not in the list of abundant numbers,
 it is added to the total sum.
 
 """
+=======
+>>>>>>> c20ba4f97358cd7a0250c7712f1844069378c73b
 while n <= maxNum:
     found = False
     for num in abundants:
